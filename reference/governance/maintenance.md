@@ -8,7 +8,7 @@
 
 | 區 | 規則 | 涵蓋 |
 |---|---|---|
-| **綠**：直接改，不需報備 | 正常工作的一部分 | memory 目錄（含 MEMORY.md、journal）、`NEXT_SESSION.md`、`vault_neo/` 內容與 `_PageIndex`、`_Insights/`、`workspace/`、governance 各檔的「教訓紀錄」append-only 段 |
+| **綠**：直接改，不需報備 | 正常工作的一部分 | memory 目錄（含 MEMORY.md）、`journal/`（工作日誌）、`NEXT_SESSION.md`、`vault_neo/` 內容與 `_PageIndex`、`_Insights/`、`workspace/`、governance 各檔的「教訓紀錄」append-only 段 |
 | **黃**：可改，但改後在工作日誌記一行（改了什麼＋為什麼） | 影響未來 session 行為 | `governance/refs/*`、`scripts/`、skill 本體（`.claude/commands/*.md`）、`governance/delegation-templates.md` 的範本措辭、`governance/diagnosis.md`、`governance/letter-to-future.md`、`governance/model-registry.md` 的映射表查證值、`governance/onboarding.md` |
 | **紅**：**先問使用者**，批准後先備份再改 | 制度骨架 | 兩層 `CLAUDE.md` 本體、`AGENTS.md`、`governance/core-rules.md`、`model-dispatch.md`／`judgment-rubrics.md`／`maintenance.md` 的**規則本文**（教訓段除外）、`model-registry.md` 的 tier 定義、`.claude/settings*.json`、launchd／cron |
 
@@ -46,11 +46,10 @@
 
 **MEMORY.md 瘦身程序**（機械，haiku/sonnet 可執行）：
 1. 備份 MEMORY.md 到 archive（同 §1 格式）。
-2. 跑 `python3 scripts/build_journal_index.py` 重建 `memory/journal-index.md`（type: reference，一檔一行）。
-   腳本會保留既有 frontmatter（harness 注入的 `node_type`／`originSessionId`／`modified` 不可洗掉），冪等可重跑。
-3. MEMORY.md 刪除**所有**「工作日誌」條目行，保留一行指標：
-   `- [工作日誌總索引](journal-index.md) — 所有 session 日誌一律查這裡`。
-4. 非日誌條目（feedback／project／reference）**不動**——那些是活規則。
+2. 跑 `python3 scripts/build_journal_index.py` 重建 `journal/journal-index.md`（repo 內，type: reference，一檔一行）。
+   腳本會保留既有 frontmatter，冪等可重跑。2026-10-15 起日誌在 repo `journal/`，不在 memory 目錄。
+3. MEMORY.md 刪除**所有**「工作日誌」條目行，保留一行指標，以絕對路徑指向 repo 的 `journal/journal-index.md`。
+4. 非日誌條目超限時：同一管線／skill 的叢集收進 `*-index.md` 二級索引（舊索引行原文照搬）；governance 以「grep MEMORY.md」引用的條目保留直接索引；其餘改寫為「情境→規則」短句，壓縮前先確認索引行的事實已在本體。
 
 > 2026-07-19 修訂：原訂「只搬 60 天前的日誌」達不到 ≤70 目標——非日誌活規則本身就佔 63 行，
 > 預算只剩 5 行。經使用者裁決改為日誌全搬，MEMORY.md 只留活規則。但這也意味著**非日誌條目缺退休機制**，
@@ -74,13 +73,12 @@
 按價值排序，每項獨立可做：
 1. **T2 冒煙測試**：開一個 T2 session（手動 `/model` 降 sonnet），用 delegation-templates T1 實填範例真跑一次，
    驗證：速查卡在 T2 上可被遵守（spawn 帶了 model）、回報合約格式正確。結果記工作日誌。
-2. **MEMORY.md 瘦身**：跑 §3 程序（現況 116 行 → 目標 ≤70）。
-3. **skills model 釘定稽核**：對 `governance/refs/skills-map.md` 的 15 個未釘定 skill，逐個判斷：
+2. **skills model 釘定稽核**：對 `governance/refs/skills-map.md` 的 15 個未釘定 skill，逐個判斷：
    純規則／Bash 協調 → 釘 haiku；合成寫作 → 釘 sonnet；有「故意不釘」註記者（deepnote、session-handoff）**跳過**。
    每釘一個，在 skill 內留一行「**Model**：xxx（理由）」。
-4. **週報擴充**（可選）：`scripts/weekly_token_report.py` 加一項「本週 Agent 呼叫缺 model 參數次數」
+3. **週報擴充**（可選）：`scripts/weekly_token_report.py` 加一項「本週 Agent 呼叫缺 model 參數次數」
    ——沒有量測面，調度遵從只能靠自律。
-5. **usage 儀表板實測**（可選，僅未來還會用 Fable 時）：驗證安全導流的額度歸屬。
+4. **usage 儀表板實測**（可選，僅未來還會用 Fable 時）：驗證安全導流的額度歸屬。
 
 ## 6) 本檔自身
 

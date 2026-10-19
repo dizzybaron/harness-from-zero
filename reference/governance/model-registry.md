@@ -28,13 +28,21 @@
 | T3 | `"opus"` | claude-opus-5-5 | $4 / $20 | 主對話預設；API effort 預設 medium；thinking 恆開不可關；fast mode 可用 |
 | T3 | `"fable"` | claude-fable-5-1 | $10 / $50 | 單價高於 opus；使用者指定才用 |
 
+### xAI — Grok Build（查證 2026-10-15，https://docs.x.ai/developers/pricing）
+
+| Tier | model ID | $/MTok in/out（<200k） | 備註 |
+|---|---|---|---|
+| T1 | （未引入） | — | spawn 無 model 參數；較低價型號未做本 repo 冒煙，不預填 |
+| T2 | （未引入） | — | 同上 |
+| T3 | `grok-4.7` | $2 / $6 | 官方標 flagship。≥200k：$4 / $12。Fast（僅 Cursor／Grok Build）為 2×，本 session 是否走 Fast 未確認 |
+
 ### 其他 provider（尚未引入；引入時照 §3 填寫，禁止憑記憶預填）
 
-| Tier | OpenAI | xAI | 開源（自架／託管） |
-|---|---|---|---|
-| T1 | （未引入） | （未引入） | （未引入） |
-| T2 | （未引入） | （未引入） | （未引入） |
-| T3 | （未引入） | （未引入） | （未引入） |
+| Tier | OpenAI | 開源（自架／託管） |
+|---|---|---|
+| T1 | （未引入） | （未引入） |
+| T2 | （未引入） | （未引入） |
+| T3 | （未引入） | （未引入） |
 
 ## 3) 新 provider 填表程序
 
@@ -48,3 +56,4 @@
 
 - 2026-07-15 立檔：自 model-dispatch §0 抽出型號價格表並抽象為 tier 語彙。
 - 2026-09-23 prompt-audit：主對話改 Opus 5.5；Agent tool 已接受 `fable`（Fable 5.1）；Sonnet 促銷到期，T2 現價待查證。
+- 2026-10-15 grok 首次登記 T3＝`grok-4.7`（牌價當日查 docs.x.ai：$2/$6，≥200k $4/$12）。T1/T2 留空：Grok Build 的 spawn 不能釘型號，未冒煙不預填。

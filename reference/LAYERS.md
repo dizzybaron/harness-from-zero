@@ -11,6 +11,8 @@
 | 索引 | 知識庫地圖：有哪些領域、各放什麼 | `reference/vault_neo/_INDEX.md` | 查詢前先讀 |
 | 命令 | 單一領域寫筆記的格式、命名、檢核 | `reference/vault_neo/02_EM/EM_Evidence_Standards.md` | 寫該領域的筆記時 |
 
+命令層的 `EM_Evidence_Standards.md` 綁著急診與作者的資料夾結構；給一般醫療工作者的通用改寫版在 `templates/note-standards.md`。
+
 旁掛（不屬於階層，但同樣會進 context）：
 
 - `reference/AGENTS.example.md`：給非 Claude agent（GPT、Grok、開源模型）的入口，內嵌憲法核心。

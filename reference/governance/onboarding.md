@@ -13,7 +13,7 @@
    （harness 不解析 `@import` 就自行開檔讀）。
 3. 按路由表按需讀 `governance/` 各檔；動 vault 前必讀 `vault_neo/CLAUDE.md`（規約）
    與對應 domain `*_Evidence_Standards.md`（命令）。
-4. session 開始讀 `NEXT_SESSION.md`；結束更新之並寫工作日誌。
+4. session 開始讀 `NEXT_SESSION.md`；結束更新之並寫工作日誌（repo `journal/`，程序見 `.claude/commands/session-handoff.md`）。
 
 ## 2) 能力自檢（capability mapping）
 
@@ -41,14 +41,15 @@
 
 - **身份標記**：commit 訊息 `[auto] YYYY-MM-DD <agent-id> session: <簡述>`
   （agent-id 例：`gpt`、`grok`、`qwen`；Claude Code 可省略 agent-id，維持既有格式）。
-  工作日誌與 NEXT_SESSION 條目同樣註明 agent-id。
+  工作日誌每節標題署名 `@<agent-id>`（日誌連 Claude Code 也署 `@claude`），NEXT_SESSION 條目同樣註明 agent-id。
 - **單一 writer**：同一時間只有一個 agent 對 repo 寫入；並行僅限 read-only。
   動 repo 前先 `git status`；發現非自己的未提交變更 → 停手回報，不覆寫。
-- **共享面只有 repo 內檔案**：`~/.claude/` 下的 memory 為 Claude Code 私有，其他 agent 不得假設可讀；
-  需跨 agent 共享的教訓 → 寫對應 governance 檔「教訓紀錄」一行。
+- **共享面只有 repo 內檔案**：`~/.claude/` 下的 memory 為 Claude Code 私有，其他 agent 不得假設可讀、不得寫；
+  需跨 agent 共享的教訓 → 寫對應 governance 檔「教訓紀錄」一行。工作日誌在 repo `journal/`（2026-10-15 自 memory 遷入）。
+  新增任何跨 agent 共用檔一律放 repo；不放進某個 agent 的私有目錄，也不靠放寬沙箱權限解決。
   skills 本體在 repo `.claude/commands/*.md`（2026-07-15 遷入）——markdown 程序文件，
   任何 agent 可直接讀取照做；slash 指令自動載入僅 Claude Code harness 有。
-- **交接面**：跨 agent 的工作交接只透過 `NEXT_SESSION.md`（含停車場）與 governance 教訓段，
+- **交接面**：跨 agent 的工作交接只透過 `NEXT_SESSION.md`（含停車場）、`journal/` 工作日誌與 governance 教訓段，
   不透過任何 agent 的私有記憶。
 
 ## 5) 對所有 agent 等效的鐵律（違反任一＝不合格，不分 provider）
@@ -62,3 +63,5 @@
 ## 教訓紀錄（append-only，一行一條）
 
 - 2026-07-15 立檔。尚無非 Claude agent 實際引入；首次引入時本協定需實測校準。
+- 2026-10-15 首次實測（grok）：handoff 把日誌寫進 Claude Code 私有 memory，grok 沙箱一律 EPERM，10-14～10-15 五場日誌未落地。使用者裁決：日誌遷 repo `journal/` 並入 git；不對其他 agent 開放 memory 寫入（同目錄 MEMORY.md 每場常載，放行等於可改 Claude Code 的常載指令）。（memory: `project_journal_moved_to_repo`）
+- 2026-10-15 grok conformance 三題 PASS。registry 只填 T3 `grok-4.7`；T1/T2 不預填（spawn 無 model 參數，未冒煙）。

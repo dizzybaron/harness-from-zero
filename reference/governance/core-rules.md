@@ -52,7 +52,7 @@
 ## 5) Git 與破壞性操作
 
 - 刪檔、force push、`git reset`、`rm -rf`、覆寫非自己建立的檔案 → 先向使用者確認。
-- Session 結束 auto-commit（不需確認）白名單：`vault_neo/`、`scripts/`、`workspace/md/`、`CLAUDE.md`、
-  `AGENTS.md`、`NEXT_SESSION.md`、`governance/`、`.claude/commands/`（memory 目錄在 repo 外，不入 git）。訊息格式：`[auto] YYYY-MM-DD session: <簡述>`；
+- Session 結束 auto-commit（不需確認）白名單：`vault_neo/`、`scripts/`、`workspace/md/`、`journal/`、`CLAUDE.md`、
+  `AGENTS.md`、`NEXT_SESSION.md`、`governance/`、`.claude/commands/`（Claude Code memory 目錄在 repo 外，不入 git）。訊息格式：`[auto] YYYY-MM-DD session: <簡述>`；
   非 Claude Code agent 加身份標記 `[auto] YYYY-MM-DD <agent-id> session: <簡述>`（見 governance/onboarding.md §4）。
 - 沙箱內 push 走 HTTPS＋gh credential helper（見 memory: `project_sandbox_git_push_https_gh`）。

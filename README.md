@@ -2,10 +2,11 @@
 
 讓你的 AI 陪你從零打造自己的 harness：一個資料夾加上幾份規則檔，讓 AI 在你的素材上做事、留下紀錄，出錯時會被攔下來。
 
-這個 repo 有兩樣東西：
+這個 repo 有三樣東西：
 
-1. **給 AI 的起始指令**（`AGENTS.md`）：交給你的 AI，它會先問你幾個問題，再陪你建出最小可用的版本。
-2. **一套實際在用的系統的規則檔快照**（`reference/`，2026-10）：一位急診醫師自用的知識庫與 AI 工作規則，分成五層，當作案例參考。
+1. **給 AI 的起始指令**（`AGENTS.md`）：交給你的 AI，它會先問你幾個問題，帶你裝好兩樣工具（把 PDF／Word 等素材轉成 Markdown 的開源轉檔工具、筆記軟體 Obsidian），再陪你建出最小可用的版本。
+2. **筆記寫作規範範本**（`templates/note-standards.md`）：從作者知識庫的寫筆記規則改寫，給醫師、護理師、藥師、治療師等醫療工作者改成自己的版本。
+3. **一套實際在用的系統的規則檔快照**（`reference/`，2026-10）：一位急診醫師自用的知識庫與 AI 工作規則，分成五層，當作案例參考。
 
 不必複製這套系統。它是用了幾個月、踩過很多雷才長成這樣；你的版本應該從小開始，遇到問題才加規則。
 
@@ -19,7 +20,7 @@
 
 **B. 只用網頁版 ChatGPT／Claude／Gemini**
 
-1. 上傳本 repo 的兩個檔：`AGENTS.md`、`reference/web-project-default-logic.txt`
+1. 上傳本 repo 的三個檔：`AGENTS.md`、`reference/web-project-default-logic.txt`、`templates/note-standards.md`
 2. 打開 [LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)，按 **Download ZIP** 下載並解壓，把裡面的 `llm-wiki.md` 也上傳（本 repo 不附原文）
 3. 對它說：「照 AGENTS.md 帶我開始」
 
@@ -29,6 +30,8 @@
 
 ```
 AGENTS.md                         給 AI 的起始指令（Claude Code 經由 CLAUDE.md 載入同一份）
+templates/
+└── note-standards.md             筆記寫作規範範本（改寫後放進你自己的資料夾）
 reference/
 ├── LAYERS.md                     五層規則對照：每層管什麼、檔案在哪、和 LLM Wiki 的對應
 ├── web-project-default-logic.txt 五層規則濃縮成單檔，改寫後可貼進網頁版 Project 指令

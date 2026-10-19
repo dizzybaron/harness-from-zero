@@ -34,7 +34,8 @@
    （harness 不解析 `@import` 就自行開檔讀）。
 3. 按路由表按需讀 `governance/` 各檔；動 vault 前必讀 `vault_neo/CLAUDE.md`（規約）
    與 domain `*_Evidence_Standards.md`（命令）。
-4. session 開始讀 `NEXT_SESSION.md`；結束更新之並寫工作日誌。
+4. session 開始讀 `NEXT_SESSION.md`；結束更新之並寫工作日誌（repo `journal/`，各 agent 共寫一本；
+   程序見 `.claude/commands/session-handoff.md`）。
 
 ## 階層式律令（由抽象到具體，下層覆蓋上層）
 

@@ -37,7 +37,7 @@ MD frontmatter 必含 `type: wiki` 或 `type: note`（分類定義見 `governanc
 ## 會話生命週期
 
 - **開始**：讀 `NEXT_SESSION.md`（上限 80 行；含「## 停車場」）。
-- **結束**：呼叫 `/session-handoff`（dialog writeback → 更新 NEXT_SESSION.md → 工作日誌 → git commit+push）。
+- **結束**：呼叫 `/session-handoff`（dialog writeback → 更新 NEXT_SESSION.md → 工作日誌（`journal/`）→ git commit+push）。
   系統改動（腳本／設定／流程）一律入日誌，不需使用者提醒。
 - Git auto-commit 白名單與破壞性操作規則見 core-rules §5；不入 git 清單見 `governance/refs/ops-pipelines.md`。
 
@@ -53,7 +53,8 @@ MD frontmatter 必含 `type: wiki` 或 `type: note`（分類定義見 `governanc
 | 原始檔封存 | `workspace/originals/` |
 | marker 工具 | `~/marker-m2/bin/marker` |
 | Skill 指令 | `.claude/commands/`（repo 內，跨 agent 共享） |
-| memory／日誌 | `<MEMORY_DIR>/` |
+| 工作日誌（各 agent 共寫，入 git） | `journal/`（索引 `journal/journal-index.md`） |
+| Claude Code memory（私有，其他 agent 不寫） | `<MEMORY_DIR>/` |
 
 ## governance/ 檔案索引
 
